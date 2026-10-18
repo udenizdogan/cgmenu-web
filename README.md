@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# cgmenu-web
 
-## Getting Started
+CG Menu'nün tanıtım sitesi (`cgmenu.tr`) ve işletmelerin herkese açık menü sayfaları (`isletme.cgmenu.tr`). Next.js (App Router).
 
-First, run the development server:
+## Geliştirme
 
 ```bash
-npm run dev
-# or
+yarn install
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Tanıtım sitesi: http://localhost:3000 (Türkçe), http://localhost:3000/en
+- Örnek menü: http://demo.localhost:3000
+- Gerçek işletme menüleri (`isletme.localhost:3000`), geri bildirim ve iletişim formu için `cgmenu-api` http://localhost:4100 adresinde çalışıyor olmalı.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Yapı
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/proxy.ts` — host'a göre yönlendirme. Alt alan adları `/tenant/[slug]/[locale]` rotasına, tanıtım sitesi yolları `/[lang]/...` rotasına yazılır. Türkçe ön eksizdir (`/ozellikler`), İngilizce `/en/features`.
+- `src/i18n/` — tanıtım sitesi dilleri, yol eşlemeleri ve metinler.
+- `src/app/[lang]/` — tanıtım sayfaları.
+- `src/app/tenant/[slug]/[locale]/` — işletme menüsü.
+- `src/lib/tenant/` — menü veri tipleri. `get-business.ts` işletmeyi `cgmenu-api`'den çeker ve önbelleğe alır; `demo` adresi siteyle birlikte gelen örnek veriyi kullanır.
+- `src/app/api/revalidate/` — API bir işletme değiştiğinde burayı çağırır, o işletmenin önbelleği yenilenir.
 
-## Learn More
+## Ortam değişkenleri
 
-To learn more about Next.js, take a look at the following resources:
+`.env.example` dosyasına bakın. Geliştirmede hepsinin varsayılanı vardır.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Yayın
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+docker build -t cgmenu-web .
+docker run -p 3000:3000 -e ROOT_DOMAIN=cgmenu.tr cgmenu-web
+```

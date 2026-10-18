@@ -1,26 +1,313 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Marketing site: palette and motion shared with cyprusguide.com.tr */
+@theme {
+  --color-brand-50: #f2f2ff;
+  --color-brand-100: #e4e4fe;
+  --color-brand-200: #c9c8fd;
+  --color-brand-400: #6f6df9;
+  --color-brand-500: #4846f7;
+  --color-brand-600: #3a38d6;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-grape-50: #f8f3fe;
+  --color-grape-100: #efe4fb;
+  --color-grape-200: #ddc8f7;
+  --color-grape-400: #b07ee6;
+  --color-grape-500: #9b5edd;
+  --color-grape-600: #8544cd;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-aqua-50: #eafaff;
+  --color-aqua-100: #d2f2fa;
+  --color-aqua-200: #a7e6f6;
+  --color-aqua-400: #22bfe0;
+  --color-aqua-500: #00aad1;
+  --color-aqua-600: #0090b2;
+
+  --color-sun-50: #fff8e9;
+  --color-sun-100: #fff0d2;
+  --color-sun-400: #ffc74f;
+  --color-sun-500: #ffb829;
+  --color-sun-600: #e09a0c;
+
+  --color-coral-50: #fff1ec;
+  --color-coral-400: #ff8560;
+  --color-coral-500: #f9603a;
+
+  --color-ink-50: #f6f6fb;
+  --color-ink-100: #e9e8f2;
+  --color-ink-200: #d5d3e6;
+  --color-ink-300: #a9a6c2;
+  --color-ink-500: #6b678f;
+  --color-ink-700: #3b3862;
+  --color-ink-900: #14122e;
+  --color-ink-950: #0b0a1d;
+
+  --color-canvas: #fbfaff;
+  --color-canvas-alt: #f4f3ff;
+
+  --shadow-card: 0 2px 4px #14122e0a, 0 12px 28px -20px #14122e59;
+  --shadow-lift: 0 20px 48px -24px #14122e73;
+  --shadow-brand: 0 18px 44px -22px #4846f7bf;
+  --shadow-grape: 0 18px 44px -22px #9b5eddbf;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-aurora: aurora 22s ease-in-out infinite;
+  --animate-float-slow: float-slow 7s ease-in-out infinite;
+
+  @keyframes aurora {
+    0%,
+    100% {
+      transform: translate(0) scale(1);
+    }
+    33% {
+      transform: translate(4%, -6%) scale(1.12);
+    }
+    66% {
+      transform: translate(-5%, 4%) scale(0.94);
+    }
+  }
+  @keyframes float-slow {
+    0%,
+    100% {
+      transform: translate(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
   }
 }
 
+@theme inline {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+
+  /* Tenant menu: values come from the business theme at runtime */
+  --color-menu-bg: var(--m-bg);
+  --color-menu-surface: var(--m-surface);
+  --color-menu-text: var(--m-text);
+  --color-menu-muted: var(--m-muted);
+  --color-menu-primary: var(--m-primary);
+  --color-menu-on-primary: var(--m-on-primary);
+  --color-menu-border: var(--m-border);
+  --font-menu-heading: var(--m-font-heading);
+  --font-menu-body: var(--m-font-body);
+  --radius-menu: var(--m-radius);
+}
+
+:root {
+  --header-h: 72px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink-900);
+}
+
+/* `.site` marks the marketing pages; tenant menus bring their own theme. */
+.site {
+  text-rendering: optimizeLegibility;
+}
+.site ::selection {
+  background: var(--color-brand-500);
+  color: #fff;
+}
+.site :focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 3px;
+}
+.site .on-dark :focus-visible {
+  outline-color: #fff;
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 40rem) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 64rem) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Italic display accent used inside headings */
+  .text-accent {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-sun-400),
+      var(--color-coral-400) 55%,
+      var(--color-grape-400)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: italic;
+    font-variation-settings:
+      "SOFT" 60,
+      "WONK" 1;
+    padding-inline-end: 0.08em;
+  }
+
+  .text-gradient-brand {
+    background-image: linear-gradient(
+      120deg,
+      var(--color-brand-500),
+      var(--color-grape-500) 60%,
+      var(--color-aqua-500)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-mesh-hero {
+    background-image:
+      radial-gradient(60% 70% at 12% 18%, #4846f7d9 0%, transparent 62%),
+      radial-gradient(55% 65% at 82% 12%, #9b5eddb3 0%, transparent 60%),
+      radial-gradient(70% 80% at 68% 88%, #00aad199 0%, transparent 60%),
+      radial-gradient(45% 55% at 38% 92%, #ffb82947 0%, transparent 58%);
+  }
+
+  .bg-mesh-soft {
+    background-image:
+      radial-gradient(50% 60% at 6% 0%, #4846f71a 0%, transparent 60%),
+      radial-gradient(45% 55% at 96% 8%, #9b5edd1a 0%, transparent 60%),
+      radial-gradient(50% 60% at 60% 100%, #00aad114 0%, transparent 60%);
+  }
+
+  .bg-grid-fine {
+    background-image:
+      linear-gradient(90deg, #ffffff0f 1px, transparent 1px),
+      linear-gradient(#ffffff0f 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  /* Light sweep across buttons on hover */
+  .shine {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .shine::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent 20%, #ffffff61 48%, transparent 72%);
+    transform: translate(-120%);
+    transition: transform 0.7s var(--ease-out-expo);
+  }
+  .shine:hover::before {
+    transform: translate(120%);
+  }
+
+  /* 1px glass border for elements on dark backgrounds */
+  .ring-gradient {
+    position: relative;
+  }
+  .ring-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(140deg, #ffffff8c, #ffffff0d 40%, #ffffff47);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .scroll-progress {
+    display: none;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+}
+@keyframes scroll-progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrance on load; stagger with --delay */
+  .rise {
+    animation: fade-in-up 0.8s var(--ease-out-expo) both;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @supports (animation-timeline: view()) {
+    /* Entrance as the element scrolls into view */
+    .reveal {
+      animation: fade-in-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+
+    .scroll-progress {
+      display: block;
+      position: fixed;
+      inset-inline: 0;
+      top: 0;
+      z-index: 60;
+      height: 3px;
+      transform-origin: 0;
+      background: linear-gradient(
+        90deg,
+        var(--color-brand-500),
+        var(--color-grape-500) 45%,
+        var(--color-aqua-500) 75%,
+        var(--color-sun-500)
+      );
+      animation: scroll-progress-grow linear;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-aurora,
+  .animate-float-slow {
+    animation: none;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
