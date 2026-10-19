@@ -1,10 +1,12 @@
 export const tr = {
   meta: {
-    title: "CG Menu — İşletmeniz için QR menü",
+    title: "CG Menu — QR Menü ve Restoran Yönetim Sistemi",
     description:
-      "Restoran, kafe ve oteller için QR menü. Markanıza göre özelleştirin, çok dilli ve çoklu para birimli menünüzü dakikalar içinde yayınlayın.",
+      "Restoran, kafe ve oteller için QR menü ve restoran yönetim sistemi. Çok dilli dijital menü, garson siparişi, mutfak ekranı, adisyon ve kasa tek web tabanlı yazılımda.",
   },
   nav: {
+    solutions: "Çözümler",
+    guides: "Rehber",
     features: "Özellikler",
     pricing: "Fiyatlar",
     faq: "SSS",
@@ -16,7 +18,7 @@ export const tr = {
   },
   home: {
     hero: {
-      badge: "Restoran, kafe ve oteller için",
+      badge: "QR menü ve restoran yönetim sistemi",
       title: "Menünüz bir",
       titleAccent: "QR kod uzağında",
       subtitle:
@@ -24,6 +26,35 @@ export const tr = {
       primary: "Kullanmaya başla",
       secondary: "Örnek menüyü gör",
       note: "Kurulum gerektirmez. Müşterileriniz uygulama indirmez.",
+    },
+    management: {
+      eyebrow: "Restoran Yönetim Sistemi",
+      title: "Siparişten ödemeye tüm servis tek panelde",
+      subtitle:
+        "QR menünüzün üzerine kurulan restoran yönetim sistemiyle garsonlar telefondan sipariş alır, siparişler mutfak ekranına düşer, kasa adisyonu kapatır.",
+      items: [
+        {
+          title: "Garson siparişi",
+          body: "El terminali yok: garson masada telefon ya da tabletten sipariş girer.",
+          solution: "waiter-ordering",
+        },
+        {
+          title: "Mutfak ekranı",
+          body: "Siparişler sesli bildirimle mutfağa düşer; hazır olanlar kasada görünür.",
+          solution: "kitchen-display",
+        },
+        {
+          title: "Adisyon ve kasa",
+          body: "Hesabın tamamı ya da kişi başı bölünmüş ödeme; nakit, kart, indirim.",
+          solution: "pos",
+        },
+        {
+          title: "Günlük özet",
+          body: "Ciro, saatlik yoğunluk, en çok satanlar, iptaller ve personel bazında tahsilat.",
+          solution: "restaurant-management",
+        },
+      ],
+      cta: "Restoran Yönetim Sistemi'ni inceleyin",
     },
     featuresEyebrow: "Özellikler",
     featuresTitle: "İhtiyacınız olan her şey tek yerde",
@@ -106,14 +137,14 @@ export const tr = {
     cta: {
       title: "Menünüzü",
       titleAccent: "bugün yayınlayın",
-      body: "Erken erişim döneminde ücretsiz. Kredi kartı gerekmez.",
+      body: "Size uygun paketi seçin, menünüz dakikalar içinde yayında.",
       button: "Kullanmaya başla",
     },
   },
   features: {
     title: "Özellikler",
     subtitle:
-      "CG Menu, menünüzü oluşturmaktan misafir geri bildirimine kadar tüm süreci kapsar.",
+      "CG Menu; QR menünüzü oluşturmaktan siparişleri mutfağa iletmeye, ödemeleri kaydetmekten gün sonu raporuna kadar tüm süreci kapsar.",
     groups: [
       {
         title: "Menü yönetimi",
@@ -183,41 +214,79 @@ export const tr = {
           },
         ],
       },
+      {
+        title: "Restoran Yönetim Sistemi",
+        items: [
+          {
+            title: "Masa planı",
+            body: "Salon, bahçe, teras gibi bölümler; dolu, boş, garson çağıran ve hesap isteyen masalar tek ekranda.",
+          },
+          {
+            title: "Garson siparişi",
+            body: "Garsonlar telefon ya da tabletten ürün, porsiyon ve notla sipariş girer.",
+          },
+          {
+            title: "Mutfak ekranı",
+            body: "Siparişler Yeni, Hazırlanıyor ve Hazır sütunlarında; yeni siparişte sesli uyarı.",
+          },
+          {
+            title: "Adisyon ve ödeme",
+            body: "Nakit, kart ya da diğer; tutara ya da ürüne göre bölünmüş ödeme, indirim ve para üstü.",
+          },
+          {
+            title: "Günlük özet",
+            body: "Ciro, önceki güne göre değişim, saatlik tahsilat, ürün satışları, iptaller ve personel.",
+          },
+          {
+            title: "Roller",
+            body: "Sahip, personel ve garson; her rol yalnızca kendi işine yarayan ekranları görür.",
+          },
+        ],
+      },
     ],
   },
+  solutions: {
+    title: "Çözümler",
+    subtitle:
+      "QR menüden restoran yönetim sistemine; restoran, kafe ve oteller için CG Menu çözümleri.",
+    products: "Ürünler",
+    businesses: "İşletme türlerine göre",
+    more: "İncele",
+    related: "İlgili çözümler",
+    relatedGuides: "İlgili rehberler",
+    faq: "Sık sorulan sorular",
+    planTitle: "Bu çözüm {plan} paketinde",
+    planCta: "Kullanmaya başla",
+    planPrices: "Tüm paketleri karşılaştır",
+    demo: "Örnek menüyü gör",
+  },
+  guides: {
+    title: "Rehber",
+    subtitle:
+      "QR menü, adisyon programı ve restoran yönetimi üzerine işletme sahipleri için pratik rehberler.",
+    readingTime: "{minutes} dk okuma",
+    updated: "Güncellendi: {date}",
+    read: "Oku",
+    toc: "Bu yazıda",
+    faq: "Sık sorulan sorular",
+    related: "Bu yazıyla ilgili çözümler",
+    more: "Diğer rehberler",
+    ctaTitle: "Menünüzü bugün dijitale taşıyın",
+    ctaBody: "QR menü ya da restoran yönetim sistemi: işletmenize uygun paketi seçin.",
+    ctaButton: "Paketleri incele",
+  },
+  breadcrumb: { label: "Sayfa konumu", home: "Ana sayfa" },
   pricing: {
     title: "Fiyatlar",
-    subtitle: "Erken erişim döneminde CG Menu ücretsizdir.",
-    plans: [
-      {
-        name: "Erken Erişim",
-        price: "Ücretsiz",
-        description: "Menünüzü oluşturun ve yayınlayın.",
-        features: [
-          "isletmeniz.cgmenu.tr adresi",
-          "QR kod",
-          "Marka özelleştirme",
-          "Çok dil ve çoklu para birimi",
-          "Geri bildirim formu",
-        ],
-        cta: "Kullanmaya başla",
-        highlighted: true,
-      },
-      {
-        name: "Pro",
-        price: "Yakında",
-        description: "Büyüyen işletmeler için ek özellikler.",
-        features: [
-          "Erken Erişim'deki her şey",
-          "Kendi alan adınız",
-          "Görüntülenme istatistikleri",
-          "Öncelikli destek",
-        ],
-        cta: "Haber ver",
-        highlighted: false,
-      },
-    ],
-    note: "Ücretli paketler duyurulduğunda mevcut hesaplar önceden bilgilendirilir.",
+    subtitle:
+      "Menünüzü dijitale taşıyın ya da tüm restoran operasyonunuzu tek sistemden yönetin.",
+    /** Plans themselves come from the API database, see lib/plans.ts */
+    perYear: "/ yıl",
+    perMonths: "/ {count} ay",
+    cta: "Kullanmaya başla",
+    unavailable: "Paketler şu anda yüklenemedi. Güncel fiyatlar için bize yazın.",
+    contact: "Bize ulaşın",
+    note: "Paketler yıllık olarak ücretlendirilir.",
   },
   faq: {
     title: "Sık sorulan sorular",
@@ -244,8 +313,20 @@ export const tr = {
         a: "Evet. Fiyatları ana para biriminizde girersiniz; diğer para birimleri belirlediğiniz ya da otomatik güncellenen kur üzerinden hesaplanır.",
       },
       {
+        q: "Restoran Yönetim Sistemi neleri kapsıyor?",
+        a: "Masa planı, garsonların telefon ya da tabletten sipariş alması, siparişlerin mutfak ekranına iletilmesi, adisyon, kasada nakit/kart ödeme ve bölünmüş hesap, indirim ve günlük ciro raporu. QR menünün tüm özellikleri de dahildir.",
+      },
+      {
+        q: "Restoran Yönetim Sistemi için özel donanım gerekir mi?",
+        a: "Hayır. Sistem web tabanlıdır; garsonlar kendi telefonlarını, mutfak bir tablet ya da ekranlı bilgisayarı kullanabilir. Kurulum gerekmez.",
+      },
+      {
+        q: "CG Menu yazar kasa ya da e-fatura yerine geçer mi?",
+        a: "Hayır. CG Menu sipariş ve adisyon yönetimi içindir; mali belge düzenlemez. Yasal belge yükümlülükleriniz için mali müşavirinize danışın.",
+      },
+      {
         q: "Ücretli mi?",
-        a: "Erken erişim döneminde ücretsizdir. Ücretli paketler duyurulduğunda önceden bilgilendirilirsiniz.",
+        a: "Evet. Paketler yıllık olarak ücretlendirilir; güncel fiyatlar Fiyatlar sayfasında.",
       },
     ],
   },
@@ -332,8 +413,9 @@ export const tr = {
     },
   },
   footer: {
-    tagline: "Restoran, kafe ve oteller için QR menü.",
+    tagline: "Restoran, kafe ve oteller için QR menü ve restoran yönetim sistemi.",
     product: "Ürün",
+    solutions: "Çözümler",
     legal: "Yasal",
     demo: "Örnek menü",
     rights: "Tüm hakları saklıdır.",

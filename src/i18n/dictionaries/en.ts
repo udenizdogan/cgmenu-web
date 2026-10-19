@@ -2,11 +2,13 @@ import type { Dictionary } from "./tr";
 
 export const en: Dictionary = {
   meta: {
-    title: "CG Menu — QR menus for your business",
+    title: "CG Menu — QR Menu and Restaurant Management System",
     description:
-      "QR menus for restaurants, cafés and hotels. Match your brand and publish a multilingual, multi-currency menu in minutes.",
+      "QR menu and restaurant management system for restaurants, cafés and hotels. Multilingual digital menu, waiter ordering, kitchen display, checks and till in one web-based app.",
   },
   nav: {
+    solutions: "Solutions",
+    guides: "Guides",
     features: "Features",
     pricing: "Pricing",
     faq: "FAQ",
@@ -18,7 +20,7 @@ export const en: Dictionary = {
   },
   home: {
     hero: {
-      badge: "For restaurants, cafés and hotels",
+      badge: "QR menu and restaurant management system",
       title: "Your menu,",
       titleAccent: "one QR code away",
       subtitle:
@@ -26,6 +28,35 @@ export const en: Dictionary = {
       primary: "Start using",
       secondary: "See a sample menu",
       note: "Nothing to install. Your guests don't need an app.",
+    },
+    management: {
+      eyebrow: "Restaurant Management System",
+      title: "The whole service, from order to payment, in one dashboard",
+      subtitle:
+        "Built on top of your QR menu: waiters take orders on their phones, orders reach the kitchen screen and the till closes the check.",
+      items: [
+        {
+          title: "Waiter ordering",
+          body: "No handhelds: waiters enter orders at the table on a phone or tablet.",
+          solution: "waiter-ordering",
+        },
+        {
+          title: "Kitchen display",
+          body: "Orders reach the kitchen with a sound alert; ready items show at the till.",
+          solution: "kitchen-display",
+        },
+        {
+          title: "Checks and till",
+          body: "Full or split payments per guest; cash, card and discounts.",
+          solution: "pos",
+        },
+        {
+          title: "Daily summary",
+          body: "Revenue, hourly activity, best sellers, cancellations and takings per staff member.",
+          solution: "restaurant-management",
+        },
+      ],
+      cta: "Explore the Restaurant Management System",
     },
     featuresEyebrow: "Features",
     featuresTitle: "Everything you need in one place",
@@ -108,14 +139,14 @@ export const en: Dictionary = {
     cta: {
       title: "Publish your menu",
       titleAccent: "today",
-      body: "Free during early access. No credit card required.",
+      body: "Pick the plan that fits you; your menu is live in minutes.",
       button: "Start using",
     },
   },
   features: {
     title: "Features",
     subtitle:
-      "CG Menu covers everything from building your menu to hearing back from guests.",
+      "CG Menu covers everything from building your QR menu to sending orders to the kitchen, recording payments and the end-of-day report.",
     groups: [
       {
         title: "Menu management",
@@ -185,41 +216,79 @@ export const en: Dictionary = {
           },
         ],
       },
+      {
+        title: "Restaurant Management System",
+        items: [
+          {
+            title: "Floor plan",
+            body: "Sections such as hall, garden and terrace; free, busy, calling and bill-requested tables on one screen.",
+          },
+          {
+            title: "Waiter ordering",
+            body: "Waiters enter items, portions and notes from a phone or tablet.",
+          },
+          {
+            title: "Kitchen display",
+            body: "Orders in New, Preparing and Ready columns, with a sound alert for new orders.",
+          },
+          {
+            title: "Checks and payments",
+            body: "Cash, card or other; split by amount or by item, with discounts and change.",
+          },
+          {
+            title: "Daily summary",
+            body: "Revenue, change on the previous day, hourly takings, item sales, cancellations and staff.",
+          },
+          {
+            title: "Roles",
+            body: "Owner, staff and waiter; each role sees only the screens it needs.",
+          },
+        ],
+      },
     ],
   },
+  solutions: {
+    title: "Solutions",
+    subtitle:
+      "From QR menus to a full restaurant management system: CG Menu for restaurants, cafés and hotels.",
+    products: "Products",
+    businesses: "By business type",
+    more: "Explore",
+    related: "Related solutions",
+    relatedGuides: "Related guides",
+    faq: "Frequently asked questions",
+    planTitle: "Included in the {plan} plan",
+    planCta: "Start using",
+    planPrices: "Compare all plans",
+    demo: "See the sample menu",
+  },
+  guides: {
+    title: "Guides",
+    subtitle:
+      "Practical guides for owners on QR menus, POS software and running a restaurant.",
+    readingTime: "{minutes} min read",
+    updated: "Updated: {date}",
+    read: "Read",
+    toc: "In this article",
+    faq: "Frequently asked questions",
+    related: "Solutions related to this article",
+    more: "More guides",
+    ctaTitle: "Take your menu digital today",
+    ctaBody: "QR menu or restaurant management system: pick the plan that fits your business.",
+    ctaButton: "See the plans",
+  },
+  breadcrumb: { label: "Breadcrumb", home: "Home" },
   pricing: {
     title: "Pricing",
-    subtitle: "CG Menu is free during early access.",
-    plans: [
-      {
-        name: "Early Access",
-        price: "Free",
-        description: "Build and publish your menu.",
-        features: [
-          "yourbusiness.cgmenu.tr address",
-          "QR code",
-          "Brand customisation",
-          "Multiple languages and currencies",
-          "Feedback form",
-        ],
-        cta: "Start using",
-        highlighted: true,
-      },
-      {
-        name: "Pro",
-        price: "Coming soon",
-        description: "Extra features for growing businesses.",
-        features: [
-          "Everything in Early Access",
-          "Your own domain",
-          "View statistics",
-          "Priority support",
-        ],
-        cta: "Notify me",
-        highlighted: false,
-      },
-    ],
-    note: "Existing accounts will be told in advance when paid plans are announced.",
+    subtitle:
+      "Take your menu digital, or run your whole restaurant operation from one system.",
+    /** Plans themselves come from the API database, see lib/plans.ts */
+    perYear: "/ year",
+    perMonths: "/ {count} months",
+    cta: "Start using",
+    unavailable: "Plans could not be loaded right now. Write to us for current prices.",
+    contact: "Contact us",
+    note: "Plans are billed yearly.",
   },
   faq: {
     title: "Frequently asked questions",
@@ -246,8 +315,20 @@ export const en: Dictionary = {
         a: "Yes. You enter prices in your main currency; other currencies are calculated from a rate you set or one that updates automatically.",
       },
       {
+        q: "What does the Restaurant Management System include?",
+        a: "A floor plan, waiters taking orders on a phone or tablet, orders sent to a kitchen screen, checks, cash/card payments and split bills at the till, discounts and a daily revenue report. Every QR menu feature is included too.",
+      },
+      {
+        q: "Do I need special hardware for the Restaurant Management System?",
+        a: "No. It is web-based; waiters can use their own phones and the kitchen a tablet or a computer with a screen. Nothing to install.",
+      },
+      {
+        q: "Does CG Menu replace a fiscal cash register or e-invoicing?",
+        a: "No. CG Menu manages orders and checks; it does not issue fiscal documents. Check your obligations with your accountant.",
+      },
+      {
         q: "Is it paid?",
-        a: "It is free during early access. You will be told in advance when paid plans are announced.",
+        a: "Yes. Plans are billed yearly; see the Pricing page for current prices.",
       },
     ],
   },
@@ -334,8 +415,9 @@ export const en: Dictionary = {
     },
   },
   footer: {
-    tagline: "QR menus for restaurants, cafés and hotels.",
+    tagline: "QR menu and restaurant management system for restaurants, cafés and hotels.",
     product: "Product",
+    solutions: "Solutions",
     legal: "Legal",
     demo: "Sample menu",
     rights: "All rights reserved.",

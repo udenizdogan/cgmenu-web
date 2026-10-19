@@ -22,6 +22,15 @@ yarn dev
 - `src/lib/tenant/` — menü veri tipleri. `get-business.ts` işletmeyi `cgmenu-api`'den çeker ve önbelleğe alır; `demo` adresi siteyle birlikte gelen örnek veriyi kullanır.
 - `src/app/api/revalidate/` — API bir işletme değiştiğinde burayı çağırır, o işletmenin önbelleği yenilenir.
 
+## İçerik ve SEO
+
+- `src/content/` — çözüm sayfaları (`/cozumler/...`) ve rehber yazıları (`/rehber/...`), TR ve EN. Metinlerde `**kalın**` ve `[bağlantı](solution:pos)`, `guide:<id>`, `page:<rota>` ya da tam adres kullanılabilir.
+- Yeni sayfa: slug'ı `src/content/slugs.ts`'e, içeriği `solutions/` ya da `guides/` altına ekleyin ve `src/content/index.ts`'e kaydedin. Sitemap, `llms.txt`, alt bilgi bağlantıları ve dil değiştirici kendiliğinden güncellenir.
+- Başlıklar en fazla ~60, açıklamalar ~160 karakter olmalı; içerik başlıkları `| CG Menu` ile biter.
+- `/llms.txt` ve `/llms-full.txt` içerikten ve API'deki planlardan üretilir (llmstxt.org).
+- Sosyal paylaşım görseli `/api/og?title=...&lang=tr` adresinde sayfa başlığıyla çizilir.
+- Planlar build sırasında API'den okunur; build ortamından API'ye ulaşılamazsa plan kutuları istek anında doldurulur. Build'de `API_INTERNAL_URL` verilmesi önerilir.
+
 ## Ortam değişkenleri
 
 `.env.example` dosyasına bakın. Geliştirmede hepsinin varsayılanı vardır.

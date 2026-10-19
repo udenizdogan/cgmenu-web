@@ -52,6 +52,9 @@ export default async function TenantMenuPage({ params }: Props) {
           ? undefined
           : `${API_URL}/public/businesses/${business.slug}/feedback`
       }
+      tablesUrl={
+        isDemo(business.slug) ? undefined : `${API_URL}/public/businesses/${business.slug}/tables`
+      }
     />
   );
 }

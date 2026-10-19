@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { MenuStrings } from "@/lib/tenant/ui-strings";
+import type { GuestTable } from "./use-table";
 
 const fieldClass =
   "mt-1.5 w-full rounded-menu border border-menu-border bg-menu-bg px-3.5 py-2.5 outline-none focus:border-menu-primary";
@@ -14,10 +15,12 @@ export function FeedbackForm({
   strings,
   locale,
   endpoint,
+  table,
 }: {
   strings: MenuStrings;
   locale: string;
   endpoint?: string;
+  table?: GuestTable | null;
 }) {
   const t = strings.feedback;
   const [rating, setRating] = useState(0);
@@ -42,8 +45,10 @@ export function FeedbackForm({
           name: field("name"),
           contact: field("contact"),
           consent: data.get("consent") === "on" || undefined,
-          // Table QR codes carry the table number as ?t=12
-          tableNo: new URLSearchParams(window.location.search).get("t")?.slice(0, 20) || undefined,
+          // Table QR codes carry a table token; older prints a table number (?t=12)
+          ...(table?.kind === "token"
+            ? { tableToken: table.token }
+            : { tableNo: table?.label }),
           locale,
         }),
       });

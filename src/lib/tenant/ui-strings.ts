@@ -27,6 +27,17 @@ export type MenuStrings = {
     error: string;
     demoNote: string;
   };
+  call: {
+    open: string;
+    title: string;
+    table: (name: string) => string;
+    waiter: string;
+    waiterHint: string;
+    bill: string;
+    billHint: string;
+    sent: string;
+    error: string;
+  };
   nav: { home: string; menu: string; about: string };
   welcome: string;
   search: string;
@@ -89,6 +100,17 @@ const tr: MenuStrings = {
     thanks: "Teşekkürler! Geri bildiriminiz alındı.",
     error: "Gönderilemedi. Lütfen biraz sonra yeniden deneyin.",
     demoNote: "Bu bir örnek menüdür; gönderimler kaydedilmez.",
+  },
+  call: {
+    open: "Garson",
+    title: "Nasıl yardımcı olalım?",
+    table: (name) => `Masa: ${name}`,
+    waiter: "Garson çağır",
+    waiterHint: "Bir çalışanımız masanıza gelir.",
+    bill: "Hesap iste",
+    billHint: "Hesabınız masanıza getirilir.",
+    sent: "İletildi, birazdan yanınızdayız.",
+    error: "İletilemedi. Lütfen bir çalışanımıza seslenin.",
   },
   nav: { home: "Ana sayfa", menu: "Menü", about: "Hakkımızda" },
   welcome: "Bugün ne yemek istersiniz?",
@@ -156,6 +178,17 @@ const en: MenuStrings = {
     error: "Could not send. Please try again in a moment.",
     demoNote: "This is a sample menu; submissions are not saved.",
   },
+  call: {
+    open: "Waiter",
+    title: "How can we help?",
+    table: (name) => `Table: ${name}`,
+    waiter: "Call a waiter",
+    waiterHint: "Someone will come to your table.",
+    bill: "Ask for the bill",
+    billHint: "We'll bring the bill to your table.",
+    sent: "Sent. We'll be right with you.",
+    error: "Could not be sent. Please ask a member of staff.",
+  },
   nav: { home: "Home", menu: "Menu", about: "About" },
   welcome: "What would you like to eat today?",
   search: "Search the menu",
@@ -222,6 +255,17 @@ const de: MenuStrings = {
     error: "Senden fehlgeschlagen. Bitte versuchen Sie es gleich noch einmal.",
     demoNote: "Dies ist eine Beispielkarte; Einsendungen werden nicht gespeichert.",
   },
+  call: {
+    open: "Service",
+    title: "Wie können wir helfen?",
+    table: (name) => `Tisch: ${name}`,
+    waiter: "Bedienung rufen",
+    waiterHint: "Jemand kommt an Ihren Tisch.",
+    bill: "Rechnung bitte",
+    billHint: "Wir bringen die Rechnung an Ihren Tisch.",
+    sent: "Gesendet. Wir sind gleich bei Ihnen.",
+    error: "Konnte nicht gesendet werden. Bitte sprechen Sie unser Personal an.",
+  },
   nav: { home: "Start", menu: "Speisekarte", about: "Über uns" },
   welcome: "Worauf haben Sie heute Appetit?",
   search: "Speisekarte durchsuchen",
@@ -287,6 +331,17 @@ const ru: MenuStrings = {
     thanks: "Спасибо! Ваш отзыв получен.",
     error: "Не удалось отправить. Попробуйте ещё раз чуть позже.",
     demoNote: "Это пример меню; отправленные отзывы не сохраняются.",
+  },
+  call: {
+    open: "Официант",
+    title: "Чем помочь?",
+    table: (name) => `Стол: ${name}`,
+    waiter: "Позвать официанта",
+    waiterHint: "К вашему столу подойдут.",
+    bill: "Попросить счёт",
+    billHint: "Счёт принесут к вашему столу.",
+    sent: "Отправлено. Скоро подойдём.",
+    error: "Не удалось отправить. Пожалуйста, обратитесь к персоналу.",
   },
   nav: { home: "Главная", menu: "Меню", about: "О нас" },
   welcome: "Что бы вы хотели сегодня?",

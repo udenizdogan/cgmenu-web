@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, type CSSProperties } from "react";
-import { href, routeKeyFromPath, type Locale, type RouteKey } from "@/i18n/config";
+import { href, pageFromPath, type Locale, type RouteKey } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { LOGIN_URL, SIGNUP_URL } from "@/lib/site";
 import { LangSwitch } from "./lang-switch";
 import { Logo } from "./logo";
 import { ArrowIcon } from "./ui";
 
-const navKeys = ["features", "pricing", "faq", "contact"] as const satisfies
+const navKeys = ["solutions", "features", "pricing", "guides", "faq"] as const satisfies
   readonly RouteKey[];
 
 function subscribeToScroll(onChange: () => void) {
@@ -29,7 +29,10 @@ export function Header({ lang, nav }: { lang: Locale; nav: Dictionary["nav"] }) 
     () => false,
   );
   const [open, setOpen] = useState(false);
-  const current = routeKeyFromPath(usePathname());
+  const page = pageFromPath(usePathname());
+  // Content pages light up their section
+  const current: RouteKey | undefined =
+    page?.type === "route" ? page.key : page?.type === "solution" ? "solutions" : page ? "guides" : undefined;
   const onDark = !scrolled && !open;
 
   useEffect(() => {

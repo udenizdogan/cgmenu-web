@@ -1,5 +1,5 @@
 import { cacheLife, cacheTag } from "next/cache";
-import { API_URL } from "@/lib/site";
+import { SERVER_API_URL } from "@/lib/site";
 import { demoBusiness } from "./demo-data";
 import type { Business } from "./types";
 
@@ -10,8 +10,6 @@ export const DEFAULT_LOCALE_SEGMENT = "default";
 export const isDemo = (slug: string) => slug === demoBusiness.slug;
 
 export const businessTag = (slug: string) => `business:${slug}`;
-
-const SERVER_API_URL = process.env.API_INTERNAL_URL || API_URL;
 
 /**
  * Cached per business. The API calls POST /api/revalidate after every change,

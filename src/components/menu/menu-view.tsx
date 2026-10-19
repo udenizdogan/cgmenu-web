@@ -15,6 +15,8 @@ import type {
 import { getMenuStrings, type MenuStrings } from "@/lib/tenant/ui-strings";
 import { FeedbackForm } from "./feedback-form";
 import { Sheet } from "./sheet";
+import { useTable } from "./use-table";
+import { WaiterCall } from "./waiter-call";
 import { useCurrency } from "./use-currency";
 
 const languageName = (locale: string) => {
@@ -116,12 +118,15 @@ export function MenuView({
   locale,
   marketingUrl,
   feedbackUrl,
+  tablesUrl,
 }: {
   business: Business;
   locale: string;
   marketingUrl: string;
   /** Where guest feedback is posted; omitted for the sample menu. */
   feedbackUrl?: string;
+  /** Base of the public table endpoints (`…/tables`); omitted for the sample menu. */
+  tablesUrl?: string;
 }) {
   const strings = getMenuStrings(locale);
   const text = (value: Parameters<typeof pick>[0]) =>
@@ -135,6 +140,9 @@ export function MenuView({
   const [query, setQuery] = useState("");
   const [openItem, setOpenItem] = useState<MenuItem | null>(null);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [callOpen, setCallOpen] = useState(false);
+  const table = useTable(business.slug, tablesUrl);
+  const canCall = business.waiterCall === true && table?.kind === "token";
 
   const screenKey =
     screen.name === "category" ? categoryHref(screen.category) : screen.name;
@@ -475,6 +483,13 @@ export function MenuView({
               icon="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-10v6m0-9.5v.5"
             />
           )}
+          {canCall && (
+            <Tab
+              label={strings.call.open}
+              onClick={() => setCallOpen(true)}
+              icon="M6 16V11a6 6 0 0 1 12 0v5l2 2H4l2-2ZM10 20a2 2 0 0 0 4 0"
+            />
+          )}
           {business.feedbackEnabled && (
             <Tab
               label={strings.feedback.open}
@@ -596,8 +611,23 @@ export function MenuView({
         label={strings.feedback.title}
         closeLabel={strings.close}
       >
-        <FeedbackForm strings={strings} locale={locale} endpoint={feedbackUrl} />
+        <FeedbackForm strings={strings} locale={locale} endpoint={feedbackUrl} table={table} />
       </Sheet>
+
+      {canCall && (
+        <Sheet
+          open={callOpen}
+          onClose={() => setCallOpen(false)}
+          label={strings.call.title}
+          closeLabel={strings.close}
+        >
+          <WaiterCall
+            strings={strings}
+            table={table}
+            endpoint={tablesUrl && `${tablesUrl}/${table.token}/calls`}
+          />
+        </Sheet>
+      )}
     </div>
   );
 }

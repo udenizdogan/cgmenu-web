@@ -21,6 +21,9 @@ export const API_URL =
   process.env.NEXT_PUBLIC_API_URL ??
   (isDev ? "http://localhost:4100" : "https://api.cgmenu.tr");
 
+/** cgmenu-api as reached from this server; may be an internal address. */
+export const SERVER_API_URL = process.env.API_INTERNAL_URL || API_URL;
+
 export const CONTACT_EMAIL =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "info@cgmenu.tr";
 

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { CSSProperties } from "react";
 import {
   accents,
   ArrowIcon,
   buttonGlass,
+  buttonOutline,
   buttonPrimary,
   cardClass,
   CheckList,
@@ -14,6 +16,8 @@ import {
   type Accent,
 } from "@/components/marketing/ui";
 import { PhoneMockup } from "@/components/marketing/phone-mockup";
+import type { SolutionId } from "@/content/slugs";
+import { pageHref } from "@/i18n/config";
 import { getDictionary, resolveLocale } from "@/i18n/dictionaries";
 import { pageMetadata } from "@/lib/metadata";
 import { DEMO_URL, SIGNUP_URL, SITE_URL } from "@/lib/site";
@@ -64,6 +68,11 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
           description: meta.description,
           url: SITE_URL,
           inLanguage: lang,
+          featureList: [
+            ...home.features.map((feature) => feature.title),
+            ...home.management.items.map((item) => item.title),
+          ],
+          publisher: { "@id": `${SITE_URL}/#organization` },
         }}
       />
 
@@ -146,6 +155,40 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="container-page pb-20 sm:pb-24">
+        <SectionHeading
+          eyebrow={home.management.eyebrow}
+          accent="aqua"
+          title={home.management.title}
+          subtitle={home.management.subtitle}
+        />
+        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {home.management.items.map((item) => (
+            <li
+              key={item.title}
+              className={`reveal group relative p-7 transition-all duration-500 ease-out-expo hover:-translate-y-2 hover:shadow-brand hover:ring-brand-200 ${cardClass}`}
+            >
+              <h3 className="text-[17px] font-bold tracking-tight transition-colors duration-300 group-hover:text-brand-500">
+                <Link
+                  href={pageHref(lang, { type: "solution", id: item.solution as SolutionId })}
+                  className="after:absolute after:inset-0"
+                >
+                  {item.title}
+                </Link>
+              </h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-ink-500">{item.body}</p>
+            </li>
+          ))}
+        </ul>
+        <Link
+          href={pageHref(lang, { type: "solution", id: "restaurant-management" })}
+          className={`${buttonOutline} reveal mt-10`}
+        >
+          {home.management.cta}
+          <ArrowIcon />
+        </Link>
       </section>
 
       <section className="bg-mesh-soft bg-canvas-alt py-20 sm:py-24">

@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { href, locales, routeKeyFromPath, type Locale } from "@/i18n/config";
+import { locales, pageFromPath, pageHref, type Locale, type Page } from "@/i18n/config";
 
 export function LangSwitch({
   lang,
@@ -12,7 +12,7 @@ export function LangSwitch({
   label: string;
   onDark?: boolean;
 }) {
-  const key = routeKeyFromPath(usePathname()) ?? "home";
+  const page: Page = pageFromPath(usePathname()) ?? { type: "route", key: "home" };
 
   return (
     <nav
@@ -27,7 +27,7 @@ export function LangSwitch({
           // Plain anchors: switching locale changes the root layout
           <a
             key={locale}
-            href={href(locale, key)}
+            href={pageHref(locale, page)}
             hrefLang={locale}
             lang={locale}
             aria-current={active ? "true" : undefined}

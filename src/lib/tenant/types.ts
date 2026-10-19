@@ -106,4 +106,6 @@ export type Business = {
   feedbackEnabled: boolean;
   /** false: the business hides every price on its menu. */
   showPrices: boolean;
+  /** Guests at a table (table QR) can call a waiter or ask for the bill. */
+  waiterCall?: boolean;
 };

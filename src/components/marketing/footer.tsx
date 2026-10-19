@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { href, type Locale } from "@/i18n/config";
+import { solutions } from "@/content";
+import { href, pageHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { CONTACT_EMAIL, DEMO_URL } from "@/lib/site";
 import { Logo } from "./logo";
@@ -19,7 +20,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
       />
       <div aria-hidden className="bg-grain absolute inset-0 -z-10 opacity-15 mix-blend-overlay" />
 
-      <div className="container-page grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr]">
+      <div className="container-page grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_1.2fr_1fr_1fr]">
         <div className="sm:col-span-2 lg:col-span-1">
           <Logo lang={lang} width={152} onDark />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/60">
@@ -28,6 +29,18 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
           <a href={`mailto:${CONTACT_EMAIL}`} className={`${linkClass} mt-4 inline-block`}>
             {CONTACT_EMAIL}
           </a>
+        </div>
+        <div>
+          <h2 className={headingClass}>{dict.footer.solutions}</h2>
+          <ul className="mt-5 space-y-3">
+            {solutions.map((solution) => (
+              <li key={solution.id}>
+                <Link href={pageHref(lang, { type: "solution", id: solution.id })} className={linkClass}>
+                  {solution.content[lang].eyebrow}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
           <h2 className={headingClass}>{dict.footer.product}</h2>
@@ -40,6 +53,11 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             <li>
               <Link href={href(lang, "pricing")} className={linkClass}>
                 {dict.nav.pricing}
+              </Link>
+            </li>
+            <li>
+              <Link href={href(lang, "guides")} className={linkClass}>
+                {dict.nav.guides}
               </Link>
             </li>
             <li>

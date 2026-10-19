@@ -1,3 +1,5 @@
+import { guideIds, guideSlugs, solutionIds, solutionSlugs, type GuideId, type SolutionId } from "@/content/slugs";
+
 export const locales = ["tr", "en"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "tr";
@@ -19,6 +21,8 @@ export const routes = {
   privacy: { tr: "gizlilik", en: "privacy" },
   terms: { tr: "kullanim-sartlari", en: "terms" },
   kvkk: { tr: "kvkk", en: "kvkk" },
+  solutions: { tr: "cozumler", en: "solutions" },
+  guides: { tr: "rehber", en: "guides" },
 } as const;
 
 export type RouteKey = keyof typeof routes;
@@ -48,4 +52,43 @@ export function routeKeyFromPath(pathname: string): RouteKey | null {
   return (
     routeKeys.find((key) => routes[key][lang] === slug || key === slug) ?? null
   );
+}
+
+/** Any marketing page: a fixed route, a solution page or a guide. */
+export type Page =
+  | { type: "route"; key: RouteKey }
+  | { type: "solution"; id: SolutionId }
+  | { type: "guide"; id: GuideId };
+
+/** Public path of any marketing page in the given locale. */
+export function pageHref(lang: Locale, page: Page): string {
+  if (page.type === "route") return href(lang, page.key);
+  const [parent, slug] =
+    page.type === "solution"
+      ? (["solutions", solutionSlugs[page.id][lang]] as const)
+      : (["guides", guideSlugs[page.id][lang]] as const);
+  return `${href(lang, parent)}/${slug}`;
+}
+
+/** Reverse of `pageHref`, for both public and internal (`/tr/guides/...`) paths. */
+export function pageFromPath(pathname: string): Page | null {
+  const segments = pathname.split("/").filter(Boolean);
+  const lang: Locale =
+    segments[0] && hasLocale(segments[0]) ? (segments.shift() as Locale) : defaultLocale;
+  if (segments.length <= 1) {
+    const key = routeKeyFromPath(lang === defaultLocale ? `/${segments.join("/")}` : `/${lang}/${segments.join("/")}`);
+    return key ? { type: "route", key } : null;
+  }
+  if (segments.length !== 2) return null;
+  const [parent, slug] = segments;
+  const is = (key: RouteKey) => parent === routes[key][lang] || parent === key;
+  if (is("solutions")) {
+    const id = solutionIds.find((i) => solutionSlugs[i][lang] === slug);
+    return id ? { type: "solution", id } : null;
+  }
+  if (is("guides")) {
+    const id = guideIds.find((i) => guideSlugs[i][lang] === slug);
+    return id ? { type: "guide", id } : null;
+  }
+  return null;
 }
