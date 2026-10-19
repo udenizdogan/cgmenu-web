@@ -7,9 +7,3 @@ services:
       - "127.0.0.1:30012:3000"
     environment:
       - NODE_ENV=production
-    networks:
-      - cgmenu_network
-
-networks:
-  cgmenu_network:
-    external: true
