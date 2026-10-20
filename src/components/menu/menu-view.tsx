@@ -423,9 +423,12 @@ export function MenuView({
                 >
                   <div className="relative isolate mt-1 flex h-44 items-end overflow-hidden rounded-menu bg-menu-primary p-5 pb-12 text-white">
                     {image && (
+                      // Category screens start hidden; lazy keeps their banners off the first load
                       <img
                         src={image}
                         alt=""
+                        loading="lazy"
+                        decoding="async"
                         className="absolute inset-0 -z-10 size-full object-cover"
                       />
                     )}
@@ -702,7 +705,7 @@ function Thumb({
   className: string;
 }) {
   return src ? (
-    <img src={src} alt="" loading="lazy" className={`object-cover ${className}`} />
+    <img src={src} alt="" loading="lazy" decoding="async" className={`object-cover ${className}`} />
   ) : (
     <span
       aria-hidden
@@ -739,6 +742,7 @@ function CategoryTile({
           src={image}
           alt=""
           loading="lazy"
+          decoding="async"
           className="absolute inset-0 -z-10 size-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       ) : (
@@ -1085,6 +1089,7 @@ function Story({
           src={block.url}
           alt={text(block.alt)}
           loading="lazy"
+          decoding="async"
           className="max-h-80 w-full rounded-menu border border-menu-border object-cover"
         />
       );

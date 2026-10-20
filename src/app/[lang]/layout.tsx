@@ -13,11 +13,13 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin", "latin-ext"],
 });
 
+// Headings only use the semibold cut. A single static weight is a fraction of
+// the full variable font (all weights plus the SOFT/WONK/opsz axes).
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin", "latin-ext"],
+  weight: "600",
   style: ["normal", "italic"],
-  axes: ["SOFT", "WONK"],
 });
 
 export function generateStaticParams() {

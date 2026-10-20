@@ -114,7 +114,8 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
               {home.hero.note}
             </p>
           </div>
-          <div className="rise" style={delay(300)}>
+          {/* No delay: the mockup's cover photo is the page's largest paint */}
+          <div className="rise">
             <PhoneMockup lang={lang} />
           </div>
         </div>

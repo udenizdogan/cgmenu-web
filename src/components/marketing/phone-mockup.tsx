@@ -7,9 +7,12 @@ import { pick } from "@/lib/tenant/format";
 import type { MenuCategory } from "@/lib/tenant/types";
 import { getMenuStrings } from "@/lib/tenant/ui-strings";
 
+// Decorative text inside the mockup: not worth competing with the page's own
+// fonts and hero image for bandwidth, so it is not preloaded.
 const poppins = Poppins({
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   subsets: ["latin", "latin-ext"],
+  preload: false,
 });
 
 // public/phone.png is 1037×1958; its screen and island in image pixels.

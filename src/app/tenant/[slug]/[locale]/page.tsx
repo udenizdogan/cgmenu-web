@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { ThemedMenu } from "@/components/menu/themed-menu";
 import { API_URL, SITE_URL } from "@/lib/site";
+import { getFontCss } from "@/lib/tenant/font-css";
 import { pick } from "@/lib/tenant/format";
 import {
   DEFAULT_LOCALE_SEGMENT,
@@ -41,10 +42,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function TenantMenuPage({ params }: Props) {
   const { business, locale } = await resolve(params);
+  const { fontStylesheet } = business.theme;
 
   return (
     <ThemedMenu
       business={business}
+      fontCss={fontStylesheet ? await getFontCss(fontStylesheet) : null}
       locale={locale}
       marketingUrl={SITE_URL}
       feedbackUrl={

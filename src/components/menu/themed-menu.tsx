@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ComponentProps, type CSSProperties } from "react";
+import { preconnect } from "react-dom";
 import { APP_URL } from "@/lib/site";
 import type { Theme } from "@/lib/tenant/types";
 import { MenuView } from "./menu-view";
@@ -54,15 +55,31 @@ function themeVariables(theme: Theme) {
 }
 
 /** The menu with its theme applied: fonts, CSS variables and images. */
-export function ThemedMenu({ business, ...props }: ComponentProps<typeof MenuView>) {
+export function ThemedMenu({
+  business,
+  fontCss,
+  ...props
+}: ComponentProps<typeof MenuView> & {
+  /** The saved theme's Google Fonts CSS, inlined by the server */
+  fontCss?: string | null;
+}) {
   const theme = usePreviewTheme(business.theme);
   const stylesheet = theme.fontStylesheet?.startsWith("https://fonts.googleapis.com/")
     ? theme.fontStylesheet
     : undefined;
+  // A dashboard preview may switch fonts; then the stylesheet is linked instead
+  const inline = stylesheet && theme === business.theme && fontCss ? fontCss : null;
+  if (stylesheet) preconnect("https://fonts.gstatic.com", { crossOrigin: "anonymous" });
 
   return (
     <>
-      {stylesheet && <link rel="stylesheet" href={stylesheet} precedence="default" />}
+      {inline ? (
+        <style href={stylesheet} precedence="default">
+          {inline}
+        </style>
+      ) : (
+        stylesheet && <link rel="stylesheet" href={stylesheet} precedence="default" />
+      )}
       {theme.fontFaces?.map((face) => (
         <style key={face.url} href={face.url} precedence="default">
           {`@font-face{font-family:${JSON.stringify(face.family)};src:url(${JSON.stringify(face.url)}) format("woff2");font-display:swap}`}
