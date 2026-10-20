@@ -4,6 +4,6 @@ services:
     container_name: cgmenu_web
     restart: always
     ports:
-      - "127.0.0.1:30012:3000"
+      - "127.0.0.1:3012:3000"
     environment:
       - NODE_ENV=production
