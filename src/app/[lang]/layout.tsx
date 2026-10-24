@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Clarity } from "@/components/clarity";
 import { Footer } from "@/components/marketing/footer";
 import { Header } from "@/components/marketing/header";
 import { JsonLd } from "@/components/marketing/ui";
@@ -84,6 +85,7 @@ export default async function MarketingLayout({
         <Header lang={lang} nav={dict.nav} />
         <main className="flex-1">{children}</main>
         <Footer lang={lang} dict={dict} />
+        <Clarity />
       </body>
     </html>
   );
