@@ -157,6 +157,13 @@ export function MenuView({
 
   const { showPrices } = business;
   const price = (item: MenuItem) => formatPrice(item.price, currency, locale);
+  const regularPrice = (item: MenuItem) =>
+    item.regularPrice ? formatPrice(item.regularPrice, currency, locale) : undefined;
+  /** "Cake + 2× Coffee" */
+  const contents = (item: MenuItem) =>
+    item.components
+      ?.map((part) => `${part.quantity > 1 ? `${part.quantity}× ` : ""}${text(part.name)}`)
+      .join(" + ") ?? "";
   const number = (value: number) => value.toLocaleString(locale, { maximumFractionDigits: 1 });
   const calories = (nutrition: Nutrition | undefined) =>
     nutrition?.calories !== undefined ? `${number(nutrition.calories)} kcal` : undefined;
@@ -176,7 +183,7 @@ export function MenuView({
   const needle = query.trim().toLocaleLowerCase(locale);
   const results = needle
     ? allItems.filter(({ item }) =>
-        `${text(item.name)} ${text(item.description)}`
+        `${text(item.name)} ${text(item.description)} ${contents(item)}`
           .toLocaleLowerCase(locale)
           .includes(needle),
       )
@@ -221,8 +228,9 @@ export function MenuView({
           <ItemRow
             item={item}
             name={text(item.name)}
-            description={text(item.description)}
+            description={text(item.description) || contents(item)}
             price={showPrices ? price(item) : undefined}
+            regularPrice={showPrices ? regularPrice(item) : undefined}
             calories={calories(item.nutrition)}
             strings={strings}
             onOpen={() => setOpenItem(item)}
@@ -529,9 +537,17 @@ export function MenuView({
                   {text(openItem.name)}
                 </h2>
                 {showPrices && (
-                  <p className="shrink-0 rounded-full bg-menu-primary px-4 py-1.5 text-lg font-bold text-menu-on-primary">
-                    {price(openItem)}
-                  </p>
+                  <div className="flex shrink-0 flex-col items-end gap-1">
+                    <p className="rounded-full bg-menu-primary px-4 py-1.5 text-lg font-bold text-menu-on-primary">
+                      {price(openItem)}
+                    </p>
+                    {openItem.regularPrice && (
+                      <p className="pe-2 text-sm text-menu-muted">
+                        <span className="sr-only">{strings.regularPrice}: </span>
+                        <s>{regularPrice(openItem)}</s>
+                      </p>
+                    )}
+                  </div>
                 )}
               </div>
               {openItem.soldOut && (
@@ -544,6 +560,23 @@ export function MenuView({
                 <p className="mt-5 leading-relaxed text-menu-muted">
                   {text(openItem.description)}
                 </p>
+              )}
+              {openItem.components && (
+                <section className="mt-6">
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-menu-muted">
+                    {strings.combo}
+                  </h3>
+                  <ul className="mt-2.5 divide-y divide-menu-border border-y border-menu-border">
+                    {openItem.components.map((part, index) => (
+                      <li key={index} className="flex items-center gap-3 py-3">
+                        <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-menu-primary/10 text-xs font-bold text-menu-primary">
+                          {part.quantity}×
+                        </span>
+                        <span>{text(part.name)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               )}
               {openItem.nutrition && (
                 <NutritionFacts
@@ -890,6 +923,7 @@ function ItemRow({
   name,
   description,
   price,
+  regularPrice,
   calories,
   strings,
   onOpen,
@@ -899,6 +933,8 @@ function ItemRow({
   description: string;
   /** Omitted when the business hides prices. */
   price?: string;
+  /** A combo's struck-through price of its items one by one. */
+  regularPrice?: string;
   calories?: string;
   strings: MenuStrings;
   onOpen: () => void;
@@ -925,9 +961,24 @@ function ItemRow({
       </span>
       <span className="flex min-w-0 flex-1 flex-col py-0.5">
         <span className="flex items-start justify-between gap-3">
-          <span className="font-menu-heading font-semibold leading-snug">{name}</span>
+          <span className="font-menu-heading font-semibold leading-snug">
+            {item.components && (
+              <span className="me-1.5 inline-block rounded-full bg-menu-primary/10 px-2 py-0.5 align-[2px] text-[10px] font-semibold uppercase tracking-wide text-menu-primary">
+                {strings.comboBadge}
+              </span>
+            )}
+            {name}
+          </span>
           {price && (
-            <span className="shrink-0 font-bold text-menu-primary">{price}</span>
+            <span className="flex shrink-0 flex-col items-end">
+              <span className="font-bold text-menu-primary">{price}</span>
+              {regularPrice && (
+                <span className="text-[11px] text-menu-muted">
+                  <span className="sr-only">{strings.regularPrice}: </span>
+                  <s>{regularPrice}</s>
+                </span>
+              )}
+            </span>
           )}
         </span>
         {description && (

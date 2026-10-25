@@ -12,6 +12,12 @@ export type MenuStrings = {
   allergenNames: Record<Allergen, string>;
   nutrition: string;
   perPortion: string;
+  /** Heading of a combo's contents */
+  combo: string;
+  /** Badge on combos in lists */
+  comboBadge: string;
+  /** Screen-reader text before a combo's struck-through regular price */
+  regularPrice: string;
   nutrients: Record<keyof Nutrition, string>;
   feedback: {
     open: string;
@@ -85,6 +91,9 @@ const tr: MenuStrings = {
   },
   nutrition: "Besin değerleri",
   perPortion: "Porsiyon başına",
+  combo: "Kombin içeriği",
+  comboBadge: "Kombin",
+  regularPrice: "Ayrı ayrı fiyatı",
   nutrients: { calories: "Kalori", protein: "Protein", carbs: "Karb.", fat: "Yağ" },
   feedback: {
     open: "Geri bildirim",
@@ -162,6 +171,9 @@ const en: MenuStrings = {
   },
   nutrition: "Nutrition",
   perPortion: "Per portion",
+  combo: "In this combo",
+  comboBadge: "Combo",
+  regularPrice: "Price separately",
   nutrients: { calories: "Calories", protein: "Protein", carbs: "Carbs", fat: "Fat" },
   feedback: {
     open: "Feedback",
@@ -239,6 +251,9 @@ const de: MenuStrings = {
   },
   nutrition: "Nährwerte",
   perPortion: "Pro Portion",
+  combo: "Im Menü enthalten",
+  comboBadge: "Menü",
+  regularPrice: "Einzelpreis",
   nutrients: { calories: "Kalorien", protein: "Eiweiß", carbs: "KH", fat: "Fett" },
   feedback: {
     open: "Feedback",
@@ -316,6 +331,9 @@ const ru: MenuStrings = {
   },
   nutrition: "Пищевая ценность",
   perPortion: "На порцию",
+  combo: "В комбо входит",
+  comboBadge: "Комбо",
+  regularPrice: "По отдельности",
   nutrients: { calories: "Калории", protein: "Белки", carbs: "Углев.", fat: "Жиры" },
   feedback: {
     open: "Отзыв",

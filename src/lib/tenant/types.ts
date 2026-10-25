@@ -75,7 +75,12 @@ export type MenuItem = {
   tags?: ItemTag[];
   allergens?: Allergen[];
   nutrition?: Nutrition;
+  /** Also true when an item inside a combo is sold out. */
   soldOut?: boolean;
+  /** Set on a combo (e.g. cake + coffee): what it is made of. */
+  components?: { name: Localized; quantity: number }[];
+  /** What a combo's items cost one by one, when that is more than its price. */
+  regularPrice?: number;
 };
 
 export type MenuCategory = {
