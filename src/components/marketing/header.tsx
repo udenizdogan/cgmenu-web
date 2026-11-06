@@ -10,7 +10,7 @@ import { LangSwitch } from "./lang-switch";
 import { Logo } from "./logo";
 import { ArrowIcon } from "./ui";
 
-const navKeys = ["solutions", "features", "pricing", "guides", "faq"] as const satisfies
+const navKeys = ["solutions", "features", "pricing", "guides", "contact"] as const satisfies
   readonly RouteKey[];
 
 function subscribeToScroll(onChange: () => void) {

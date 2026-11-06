@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { API_URL } from "@/lib/site";
 import { buttonPrimary, cardClass } from "./ui";
 
 const fieldClass =
-  "mt-2 w-full rounded-2xl bg-ink-50 px-4 py-3.5 font-medium outline-none ring-1 ring-ink-100 transition-shadow focus:bg-white focus:ring-2 focus:ring-brand-500";
+  "w-full rounded-2xl bg-ink-50 px-4 py-3.5 font-medium outline-none ring-1 ring-ink-100 transition-shadow focus:bg-white focus:ring-2 focus:ring-brand-500";
 
 /** Sends the message to cgmenu-api (`POST /public/contact`). */
 export function ContactForm({
@@ -43,50 +43,76 @@ export function ContactForm({
 
   if (status === "sent") {
     return (
-      <p role="status" className={`p-9 text-center text-lg font-bold ${cardClass}`}>
+      <p role="status" className={`self-start p-10 text-center text-lg font-bold ${cardClass}`}>
         {labels.sent}
       </p>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`space-y-5 p-7 sm:p-9 ${cardClass}`}>
-      <label className="block text-sm font-bold">
-        {labels.name}
-        <input name="name" required maxLength={120} autoComplete="name" className={fieldClass} />
-      </label>
-      <label className="block text-sm font-bold">
-        {labels.email}
-        <input
-          name="email"
-          type="email"
-          required
-          maxLength={254}
-          autoComplete="email"
-          className={fieldClass}
-        />
-      </label>
-      <label className="block text-sm font-bold">
-        {labels.business}
-        <input name="business" maxLength={120} autoComplete="organization" className={fieldClass} />
-      </label>
-      <label className="block text-sm font-bold">
-        {labels.message}
-        <textarea name="message" required rows={5} maxLength={4000} className={fieldClass} />
-      </label>
+    <form onSubmit={handleSubmit} className={`p-6 sm:p-10 ${cardClass}`}>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label={labels.name} required>
+          <input name="name" required maxLength={120} autoComplete="name" className={fieldClass} />
+        </Field>
+        <Field label={labels.business}>
+          <input name="business" maxLength={120} autoComplete="organization" className={fieldClass} />
+        </Field>
+        <Field label={labels.email} required className="sm:col-span-2">
+          <input
+            name="email"
+            type="email"
+            required
+            maxLength={254}
+            autoComplete="email"
+            className={fieldClass}
+          />
+        </Field>
+        <Field label={labels.message} required className="sm:col-span-2">
+          <textarea
+            name="message"
+            required
+            rows={5}
+            maxLength={4000}
+            className={`${fieldClass} resize-y`}
+          />
+        </Field>
+      </div>
       {status === "error" && (
-        <p role="alert" className="text-sm font-bold text-red-700">
+        <p role="alert" className="mt-6 rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-700">
           {labels.error}
         </p>
       )}
       <button
         type="submit"
         disabled={status === "sending"}
-        className={`${buttonPrimary} w-full disabled:opacity-60`}
+        className={`${buttonPrimary} mt-8 w-full disabled:opacity-60`}
       >
         {labels.submit}
       </button>
-      <p className="text-center text-xs text-ink-500">{labels.hint}</p>
+      <p className="mt-4 text-center text-xs text-ink-500">{labels.hint}</p>
     </form>
+  );
+}
+
+function Field({
+  label,
+  required,
+  className = "",
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <label className={`flex flex-col gap-2 text-sm font-bold ${className}`}>
+      <span>
+        {label}
+        {required && <span className="ml-0.5 text-brand-500">*</span>}
+      </span>
+      {children}
+    </label>
   );
 }

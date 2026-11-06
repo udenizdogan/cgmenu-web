@@ -334,6 +334,16 @@ export const tr = {
     title: "İletişim",
     subtitle: "Sorularınız ve önerileriniz için bize yazın.",
     emailLabel: "E-posta",
+    channels: {
+      customers: {
+        title: "Mevcut müşteriler",
+        text: "Panele giriş yaptığınız e-posta adresiyle yazarsanız talebinizi daha hızlı sonuçlandırırız.",
+      },
+      response: {
+        title: "Dönüş süresi",
+        text: "Mesajınız kayıt altına alınır ve ekibimiz en kısa sürede size dönüş yapar.",
+      },
+    },
     form: {
       name: "Adınız",
       business: "İşletme adı",

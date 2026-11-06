@@ -336,6 +336,16 @@ export const en: Dictionary = {
     title: "Contact",
     subtitle: "Write to us with your questions and suggestions.",
     emailLabel: "Email",
+    channels: {
+      customers: {
+        title: "Existing customers",
+        text: "Write from the email address you sign in to the dashboard with so we can resolve your request faster.",
+      },
+      response: {
+        title: "Response time",
+        text: "Your message is logged and our team gets back to you as soon as possible.",
+      },
+    },
     form: {
       name: "Your name",
       business: "Business name",
