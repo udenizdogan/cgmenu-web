@@ -92,7 +92,10 @@ export function DarkBackdrop() {
       <div className="animate-aurora absolute -bottom-48 left-1/3 size-[32rem] rounded-full bg-aqua-500/20 blur-[140px] [animation-delay:-14s]" />
       <div className="bg-grid-fine absolute inset-0 opacity-45 [mask-image:radial-gradient(70%_60%_at_50%_40%,#000,transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(78%_68%_at_36%_44%,transparent_0%,rgba(11,10,29,0.62)_100%)]" />
-      <div className="bg-grain absolute inset-0 opacity-20 mix-blend-overlay" />
+      {/* No mix-blend-mode here: blending the noise over the animated aurora
+          re-rasterizes the whole layer every frame and blocked the main thread
+          for ~4s on mobile (LCP 5s+). Plain opacity looks the same. */}
+      <div className="bg-grain absolute inset-0 opacity-20" />
     </div>
   );
 }
