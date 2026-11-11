@@ -260,10 +260,14 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Entrance on load; stagger with --delay */
-  .rise {
-    animation: fade-in-up 0.8s var(--ease-out-expo) both;
-    animation-delay: var(--delay, 0s);
+  /* Entrance on load; stagger with --delay. Desktop only: the faded-out start
+     keeps the hero heading from counting as painted, which pushed mobile LCP
+     back behind every request that started meanwhile. */
+  @media (min-width: 64rem) {
+    .rise {
+      animation: fade-in-up 0.8s var(--ease-out-expo) both;
+      animation-delay: var(--delay, 0s);
+    }
   }
 
   @supports (animation-timeline: view()) {

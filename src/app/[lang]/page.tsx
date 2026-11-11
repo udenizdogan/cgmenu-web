@@ -114,8 +114,12 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
               {home.hero.note}
             </p>
           </div>
-          {/* No delay: the mockup's cover photo is the page's largest paint */}
-          <div className="rise">
+          {/* Desktop only. On phones the mockup sat just below the copy, and its
+              six lazy images and Poppins files still loaded before the first
+              paint, which held mobile LCP back by seconds. Hidden, none of it
+              is fetched; "Örnek menüyü gör" opens the real menu instead.
+              No delay: on desktop its cover photo is the largest paint. */}
+          <div className="rise hidden lg:block">
             <PhoneMockup lang={lang} />
           </div>
         </div>
