@@ -102,7 +102,7 @@ function MenuScreen({ lang }: { lang: Locale }) {
             alt=""
             fill
             sizes="390px"
-            loading="eager"
+            loading="lazy"
             className="-z-10 object-cover"
           />
         )}
@@ -232,7 +232,7 @@ export function PhoneMockup({ lang }: { lang: Locale }) {
         alt=""
         width={PHONE_WIDTH}
         height={Math.round(FRAME.height * px)}
-        loading="eager"
+        loading="lazy"
         className="relative"
       />
       <div

@@ -18,7 +18,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         aria-hidden
         className="absolute inset-0 -z-10 bg-[radial-gradient(80%_80%_at_20%_0%,transparent_0%,rgba(11,10,29,0.8)_100%)]"
       />
-      <div aria-hidden className="bg-grain absolute inset-0 -z-10 opacity-15 mix-blend-overlay" />
+      <div aria-hidden className="bg-grain absolute inset-0 -z-10 opacity-15" />
 
       <div className="container-page grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_1.2fr_1fr_1fr]">
         <div className="sm:col-span-2 lg:col-span-1">

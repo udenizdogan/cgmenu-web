@@ -16,11 +16,15 @@ const jakarta = Plus_Jakarta_Sans({
 
 // Headings only use the semibold cut. A single static weight is a fraction of
 // the full variable font (all weights plus the SOFT/WONK/opsz axes).
+// Not preloaded: its 4 files (2 styles × 2 subsets) competed with the
+// render-blocking CSS on slow mobile connections and delayed the first paint.
+// Headings show the metric-matched fallback briefly, then swap.
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin", "latin-ext"],
   weight: "600",
   style: ["normal", "italic"],
+  preload: false,
 });
 
 export function generateStaticParams() {
