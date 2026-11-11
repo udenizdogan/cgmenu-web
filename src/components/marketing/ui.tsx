@@ -4,7 +4,7 @@ export const buttonPrimary =
   "shine inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-grape-500 px-7 py-3.5 text-sm font-bold text-white shadow-[0_12px_32px_-12px_rgba(72,70,247,0.95)] transition-transform duration-300 hover:-translate-y-0.5";
 
 export const buttonGlass =
-  "ring-gradient inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-7 py-3.5 text-sm font-bold text-white backdrop-blur-md transition-colors duration-300 hover:bg-white/20";
+  "ring-gradient inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-7 py-3.5 text-sm font-bold text-white transition-colors lg:backdrop-blur-md duration-300 hover:bg-white/20";
 
 export const buttonOutline =
   "inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-ink-900 ring-1 ring-ink-200 transition-all duration-300 hover:-translate-y-0.5 hover:ring-brand-400";
@@ -82,20 +82,50 @@ export function SectionHeading({
   );
 }
 
-/** Layered backdrop for dark sections: mesh, drifting glows, grid and grain. */
+/**
+ * A soft glow: a circle of `size` px blurred by `blur` px, drawn as a radial
+ * gradient that follows the Gaussian edge (≈85% at size/2 − blur, 50% at the
+ * rim, 15% at + blur, gone at + 2·blur). A real `filter: blur()` this wide had
+ * to be re-rendered by the phone's GPU before the hero could appear.
+ */
+function Glow({ rgb, alpha, size, blur }: { rgb: string; alpha: number; size: number; blur: number }) {
+  const radius = size / 2;
+  const outer = radius + 2 * blur;
+  const at = (r: number) => `${((Math.max(0, r) / outer) * 100).toFixed(1)}%`;
+  const color = (k: number) => `rgb(${rgb} / ${(alpha * k).toFixed(3)})`;
+  return (
+    <div
+      className="absolute"
+      style={{
+        inset: -2 * blur,
+        background: `radial-gradient(closest-side, ${color(1)}, ${color(0.85)} ${at(radius - blur)}, ${color(0.5)} ${at(radius)}, ${color(0.15)} ${at(radius + blur)}, transparent)`,
+      }}
+    />
+  );
+}
+
+/**
+ * Layered backdrop for dark sections: mesh, glows, grid and grain. Kept cheap
+ * to paint on phones; the drifting glows and the grain are desktop only.
+ */
 export function DarkBackdrop() {
   return (
     <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden bg-ink-950">
       <div className="bg-mesh-hero absolute inset-0 opacity-55" />
-      <div className="animate-aurora absolute -left-40 top-[-20%] size-[36rem] rounded-full bg-brand-500/30 blur-[130px]" />
-      <div className="animate-aurora absolute -right-32 top-[-10%] size-[30rem] rounded-full bg-grape-500/30 blur-[120px] [animation-delay:-7s]" />
-      <div className="animate-aurora absolute -bottom-48 left-1/3 size-[32rem] rounded-full bg-aqua-500/20 blur-[140px] [animation-delay:-14s]" />
+      <div className="absolute -left-40 top-[-20%] size-[36rem] lg:motion-safe:animate-aurora">
+        <Glow rgb="72 70 247" alpha={0.3} size={576} blur={130} />
+      </div>
+      <div className="absolute -right-32 top-[-10%] size-[30rem] [animation-delay:-7s] lg:motion-safe:animate-aurora">
+        <Glow rgb="155 94 221" alpha={0.3} size={480} blur={120} />
+      </div>
+      <div className="absolute -bottom-48 left-1/3 size-[32rem] [animation-delay:-14s] lg:motion-safe:animate-aurora">
+        <Glow rgb="0 170 209" alpha={0.2} size={512} blur={140} />
+      </div>
       <div className="bg-grid-fine absolute inset-0 opacity-45 [mask-image:radial-gradient(70%_60%_at_50%_40%,#000,transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(78%_68%_at_36%_44%,transparent_0%,rgba(11,10,29,0.62)_100%)]" />
-      {/* No mix-blend-mode here: blending the noise over the animated aurora
-          re-rasterizes the whole layer every frame and blocked the main thread
-          for ~4s on mobile (LCP 5s+). Plain opacity looks the same. */}
-      <div className="bg-grain absolute inset-0 opacity-20" />
+      {/* No mix-blend-mode: blending the noise over the moving glows
+          re-rasterized the whole layer every frame (LCP 5s+ on mobile). */}
+      <div className="bg-grain absolute inset-0 hidden opacity-20 lg:block" />
     </div>
   );
 }
@@ -114,7 +144,7 @@ export function PageIntro({
     <section className="on-dark relative isolate -mt-[var(--header-h)] overflow-hidden pt-[var(--header-h)] text-white">
       <DarkBackdrop />
       <div className="container-page py-16 text-center sm:py-24">
-        <h1 className="rise mx-auto max-w-3xl font-display text-[clamp(2.25rem,5.4vw,4rem)] font-semibold leading-[1.02] text-balance drop-shadow-[0_4px_28px_rgba(11,10,29,0.6)]">
+        <h1 className="rise mx-auto max-w-3xl font-display text-[clamp(2.25rem,5.4vw,4rem)] font-semibold leading-[1.02] text-balance lg:drop-shadow-[0_4px_28px_rgba(11,10,29,0.6)]">
           {title}
         </h1>
         {subtitle && (

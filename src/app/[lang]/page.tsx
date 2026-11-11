@@ -80,14 +80,14 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         <DarkBackdrop />
         <div className="container-page grid items-center gap-16 py-20 sm:py-24 lg:grid-cols-[1.15fr_0.85fr]">
           <div>
-            <p className="rise inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 py-2 pl-3 pr-4 text-xs font-bold text-white/95 backdrop-blur-md">
+            <p className="rise inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 py-2 pl-3 pr-4 text-xs font-bold text-white/95 lg:backdrop-blur-md">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-sun-500 opacity-70" />
                 <span className="relative inline-flex size-2 rounded-full bg-sun-500" />
               </span>
               {home.hero.badge}
             </p>
-            <h1 className="mt-7 font-display text-[clamp(2.75rem,6.6vw,4.75rem)] font-semibold leading-[1] drop-shadow-[0_4px_28px_rgba(11,10,29,0.6)]">
+            <h1 className="mt-7 font-display text-[clamp(2.75rem,6.6vw,4.75rem)] font-semibold leading-[1] lg:drop-shadow-[0_4px_28px_rgba(11,10,29,0.6)]">
               <span className="rise block" style={delay(120)}>
                 {home.hero.title}
               </span>
